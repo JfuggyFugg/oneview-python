@@ -48,147 +48,128 @@ if interconnect_type:
     interconnect_type_url = interconnect_type.data["uri"]
 
 options = {
-    "category": None,
-    "created": None,
-    "description": None,
-    "eTag": None,
+    "type": "logical-interconnect-groupV8",
+    "category": "logical-interconnect-groups",
+    "name": "LIG-VCEth3",
     "uplinkSets": [],
-    "modified": None,
-    "name": "OneView Test Logical Interconnect Group",
-    "state": "Active",
-    "status": None,
-    "enclosureType": "C7000",
     "interconnectMapTemplate": {
         "interconnectMapEntryTemplates": [
             {
-                "logicalDownlinkUri": None,
+                "permittedInterconnectTypeUri": "/rest/interconnect-types/a13a95a4-6b59-45fd-bda5-a1206d42ac4d",
+                "enclosureIndex": 1,
                 "logicalLocation": {
                     "locationEntries": [
-                        {
-                            "relativeValue": "1",
-                            "type": "Bay"
-                        },
                         {
                             "relativeValue": 1,
                             "type": "Enclosure"
-                        }
-                    ]
-                },
-                "permittedInterconnectTypeUri": interconnect_type_url
-            },
-            {
-                "logicalDownlinkUri": None,
-                "logicalLocation": {
-                    "locationEntries": [
-                        {
-                            "relativeValue": "2",
-                            "type": "Bay"
                         },
-                        {
-                            "relativeValue": 1,
-                            "type": "Enclosure"
-                        }
-                    ]
-                },
-                "permittedInterconnectTypeUri": interconnect_type_url
-            },
-            {
-                "logicalDownlinkUri": None,
-                "logicalLocation": {
-                    "locationEntries": [
-                        {
-                            "relativeValue": 3,
-                            "type": "Bay"
-                        },
-                        {
-                            "relativeValue": 1,
-                            "type": "Enclosure"
-                        }
-                    ]
-                },
-                "permittedInterconnectTypeUri": None
-            },
-            {
-                "logicalDownlinkUri": None,
-                "logicalLocation": {
-                    "locationEntries": [
-                        {
-                            "relativeValue": 4,
-                            "type": "Bay"
-                        },
-                        {
-                            "relativeValue": 1,
-                            "type": "Enclosure"
-                        }]
-                },
-                "permittedInterconnectTypeUri": None
-            },
-            {
-                "logicalDownlinkUri": None,
-                "logicalLocation": {
-                    "locationEntries": [
-                        {
-                            "relativeValue": 5,
-                            "type": "Bay"
-                        },
-                        {
-                            "relativeValue": 1,
-                            "type": "Enclosure"
-                        }
-                    ]
-                },
-                "permittedInterconnectTypeUri": None
-            },
-            {
-                "logicalDownlinkUri": None,
-                "logicalLocation": {
-                    "locationEntries": [
                         {
                             "relativeValue": 6,
                             "type": "Bay"
-                        },
-                        {
-                            "relativeValue": 1,
-                            "type": "Enclosure"
                         }
                     ]
-                },
-                "permittedInterconnectTypeUri": None
+                }
             },
             {
-                "logicalDownlinkUri": None,
+                "permittedInterconnectTypeUri": "/rest/interconnect-types/e51e7997-b83a-4b8d-8933-2ba9e09af10a",
+                "enclosureIndex": 1,
                 "logicalLocation": {
                     "locationEntries": [
                         {
-                            "relativeValue": 7,
-                            "type": "Bay"
-                        },
-                        {
                             "relativeValue": 1,
                             "type": "Enclosure"
+                        },
+                        {
+                            "relativeValue": 3,
+                            "type": "Bay"
                         }
                     ]
-                },
-                "permittedInterconnectTypeUri": None
+                }
             },
             {
-                "logicalDownlinkUri": None,
+                "permittedInterconnectTypeUri": "/rest/interconnect-types/e51e7997-b83a-4b8d-8933-2ba9e09af10a",
+                "enclosureIndex": 2,
                 "logicalLocation": {
                     "locationEntries": [
                         {
-                            "relativeValue": 8,
-                            "type": "Bay"
+                            "relativeValue": 2,
+                            "type": "Enclosure"
                         },
                         {
-                            "relativeValue": 1,
-                            "type": "Enclosure"
+                            "relativeValue": 6,
+                            "type": "Bay"
                         }
                     ]
-                },
-                "permittedInterconnectTypeUri": None
+                }
+            },
+            {
+                "permittedInterconnectTypeUri": "/rest/interconnect-types/a13a95a4-6b59-45fd-bda5-a1206d42ac4d",
+                "enclosureIndex": 2,
+                "logicalLocation": {
+                    "locationEntries": [
+                        {
+                            "relativeValue": 2,
+                            "type": "Enclosure"
+                        },
+                        {
+                            "relativeValue": 3,
+                            "type": "Bay"
+                        }
+                    ]
+                }
             }
         ]
-    }
+    },
+    "internalNetworkUris": [],
+    "consistencyCheckingForInternalNetworks": "ExactMatch",
+    "ethernetSettings": {
+        "type": "EthernetInterconnectSettingsV7",
+        "enableFastMacCacheFailover": true,
+        "macRefreshInterval": 5,
+        "enableNetworkLoopProtection": true,
+        "enablePauseFloodProtection": false,
+        "enableRichTLV": false,
+        "enableTaggedLldp": false,
+        "enableStormControl": false,
+        "stormControlThreshold": 1,
+        "stormControlPollingInterval": 10,
+        "enableCutThrough": false,
+        "enableDdns": false,
+        "domainName": null,
+        "consistencyChecking": "ExactMatch"
+    },
+    "igmpSettings": {
+        "type": "IgmpSettings",
+        "consistencyChecking": "ExactMatch",
+        "enableIgmpSnooping": false,
+        "igmpSnoopingVlanIds": null,
+        "igmpIdleTimeoutInterval": 260,
+        "enablePreventFlooding": false,
+        "enableProxyReporting": true
+    },
+    "snmpConfiguration": null,
+    "qosConfiguration": {
+        "type": "qos-aggregated-configuration",
+        "activeQosConfig": {
+            "type": "QosConfiguration",
+            "configType": "Passthrough",
+            "qosTrafficClassifiers": [],
+            "uplinkClassificationType": null,
+            "downlinkClassificationType": null
+        },
+        "inactiveFCoEQosConfig": null,
+        "inactiveNonFCoEQosConfig": null,
+        "consistencyChecking": "ExactMatch"
+    },
+    "enclosureType": "SY12000",
+    "enclosureIndexes": [
+        1,
+        2
+    ],
+    "interconnectBaySet": 3,
+    "redundancyType": "HighlyAvailable",
+    "downlinkSpeedMode": "SPEED_50GB",
+    "initialScopeUris": []
 }
 
 # Get all, with defaults

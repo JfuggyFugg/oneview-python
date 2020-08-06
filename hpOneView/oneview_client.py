@@ -286,8 +286,10 @@ class OneViewClient(object):
             return config["api_version"]
         else:
             __connection_obj = connection(config.get("ip"))
-            version = __connection_obj.get(uri['version'])['currentVersion']
-            config["api_version"] = version
+            version = __connection_obj.get('/rest/version')
+            f = open('logs1.txt', 'w')
+            f.write(str(version))
+            config["api_version"] = version['currentVersion']
             return config["api_version"]
 
     @property

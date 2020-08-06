@@ -27,7 +27,8 @@ config = {
         "userName": "Administrator",
         "password": "admin123"
     },
-    "api_version": ""
+    "api_version": "",
+    "ssl_certificate": ""
 }
 
 options = {
@@ -50,9 +51,12 @@ options_bulk_delete = {
 scope_name = "test_scope"
 
 # Try load config from a file (if there is a config file)
-config = try_load_from_file(config)
+# config = try_load_from_file(config)
 
+f = open('logs2.txt', 'w')
+f.write(str(config))
 oneview_client = OneViewClient(config)
+
 fc_networks = oneview_client.fc_networks
 
 # Get all, with defaults

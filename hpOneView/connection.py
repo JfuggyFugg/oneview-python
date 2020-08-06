@@ -52,11 +52,17 @@ class connection(object):
         self._session = None
         self._host = applianceIp
         self._cred = None
-        self._apiVersion = int(api_version)
-        self._headers = {
-            'X-API-Version': self._apiVersion,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'}
+        if(api_version):
+            self._apiVersion = int(api_version)
+            self._headers = {
+                'X-API-Version': self._apiVersion,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'}
+        else:
+            self._apiVersion = None
+            self._headers = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'}
         self._proxyHost = None
         self._proxyPort = None
         self._doProxy = False

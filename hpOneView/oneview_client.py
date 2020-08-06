@@ -119,8 +119,8 @@ ONEVIEW_CLIENT_MISSING_IP = 'Oneview ip address is missing'
 class OneViewClient(object):
 
     def __init__(self, config):
-        apiVersion = self.__validate_api_version(config)
-        self.__connection = connection(config.get('ip'), apiVersion, config.get('ssl_certificate', False),
+        DEFAULT_API_VERSION = self.__connection.get(uri['version'])['currentVersion']
+        self.__connection = connection(config.get('ip'), config.get('api_version', self.DEFAULT_API_VERSION), config.get('ssl_certificate', False),
                                        config.get('timeout'))
         self.__image_streamer_ip = config.get("image_streamer_ip")
         self.__validate_host()
@@ -237,7 +237,7 @@ class OneViewClient(object):
         """
         ip = os.environ.get('ONEVIEWSDK_IP', '')
         image_streamer_ip = os.environ.get('ONEVIEWSDK_IMAGE_STREAMER_IP', '')
-        api_version = int(os.environ.get('ONEVIEWSDK_API_VERSION', ''))
+        api_version = int(os.environ.get('ONEVIEWSDK_API_VERSION', OneViewClient.DEFAULT_API_VERSION))
         ssl_certificate = os.environ.get('ONEVIEWSDK_SSL_CERTIFICATE', '')
         username = os.environ.get('ONEVIEWSDK_USERNAME', '')
         auth_login_domain = os.environ.get('ONEVIEWSDK_AUTH_LOGIN_DOMAIN', '')
@@ -277,14 +277,6 @@ class OneViewClient(object):
         """
         if not self.__connection._host:
             raise ValueError(ONEVIEW_CLIENT_MISSING_IP)
-
-    def __validate_api_version(config):
-        if "api_version" in config and config["api_version"]:
-            return config["api_version"]
-        else:
-            version = self.__connection.get(uri['version'])
-            config["api_version"] = version
-            return version['currentVersion']
 
     @property
     def api_version(self):

@@ -22,12 +22,12 @@ from config_loader import try_load_from_file
 
 # To run this example fill the ip and the credentials below or use a configuration file
 config = {
-    "ip": "<oneview_ip>",
+    "ip": "10.50.5.90",
     "credentials": {
-        "userName": "<username>",
-        "password": "<password>"
+        "userName": "Administrator",
+        "password": "admin123"
     },
-    "api_version": "<api_version>"
+    "api_version": ""
 }
 
 options = {

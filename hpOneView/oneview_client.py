@@ -114,18 +114,20 @@ from hpOneView.resources.hypervisors.hypervisor_cluster_profiles import Hypervis
 ONEVIEW_CLIENT_INVALID_PROXY = 'Invalid Proxy format'
 ONEVIEW_CLIENT_INVALID_I3S_IP = 'Image streamer ip address is missing'
 ONEVIEW_CLIENT_MISSING_IP = 'Oneview ip address is missing'
+DEFAULT_API_VERSION = ""
 
 
 class OneViewClient(object):
 
     def __init__(self, config):
-        DEFAULT_API_VERSION = self.__connection.get(uri['version'])['currentVersion']
-        self.__connection = connection(config.get('ip'), config.get('api_version', self.DEFAULT_API_VERSION), config.get('ssl_certificate', False),
+        apiVersion = self.__validate_api_version(config)
+        self.__connection = connection(config.get('ip'), config.get('api_version', apiVersion), config.get('ssl_certificate', False),
                                        config.get('timeout'))
         self.__image_streamer_ip = config.get("image_streamer_ip")
+        
         self.__validate_host()
         self.__set_proxy(config)
-        self.__connection.login(config["credentials"])
+        self.__connection.login(config['credentials'])
         self.__certificate_authority = None
         self.__connections = None
         self.__connection_templates = None
@@ -235,9 +237,10 @@ class OneViewClient(object):
         Returns:
             OneViewClient:
         """
+        apiVersion = self.__validate_api_version()
         ip = os.environ.get('ONEVIEWSDK_IP', '')
         image_streamer_ip = os.environ.get('ONEVIEWSDK_IMAGE_STREAMER_IP', '')
-        api_version = int(os.environ.get('ONEVIEWSDK_API_VERSION', OneViewClient.DEFAULT_API_VERSION))
+        api_version = int(os.environ.get('ONEVIEWSDK_API_VERSION', apiVersion))
         ssl_certificate = os.environ.get('ONEVIEWSDK_SSL_CERTIFICATE', '')
         username = os.environ.get('ONEVIEWSDK_USERNAME', '')
         auth_login_domain = os.environ.get('ONEVIEWSDK_AUTH_LOGIN_DOMAIN', '')
@@ -278,6 +281,15 @@ class OneViewClient(object):
         if not self.__connection._host:
             raise ValueError(ONEVIEW_CLIENT_MISSING_IP)
 
+    def __validate_api_version(self, config):
+        if "api_version" in config and config["api_version"]:
+            return config["api_version"]
+        else:
+            __connection_obj = connection(config.get("ip"))
+            version = __connection_obj.get(uri['version'])['currentVersion']
+            config["api_version"] = version
+            return config["api_version"]
+
     @property
     def api_version(self):
         """
@@ -286,7 +298,7 @@ class OneViewClient(object):
         Returns:
             int: API Version.
         """
-        if(self._connection._apiVersion):
+        if(self.__connection._apiVersion):
             return self.__connection._apiVersion
         else:
             pass

@@ -237,10 +237,14 @@ class OneViewClient(object):
         Returns:
             OneViewClient:
         """
-        apiVersion = self.__validate_api_version()
         ip = os.environ.get('ONEVIEWSDK_IP', '')
         image_streamer_ip = os.environ.get('ONEVIEWSDK_IMAGE_STREAMER_IP', '')
-        api_version = int(os.environ.get('ONEVIEWSDK_API_VERSION', apiVersion))
+        if(os.environ.get('ONEVIEWSDK_API_VERSION')):
+            api_version = int(os.environ.get('ONEVIEWSDK_API_VERSION'))
+        else:
+            __connection_obj = connection(ip)
+            version = __connection_obj.get('/rest/version')
+            api_version = version['currentVersion']
         ssl_certificate = os.environ.get('ONEVIEWSDK_SSL_CERTIFICATE', '')
         username = os.environ.get('ONEVIEWSDK_USERNAME', '')
         auth_login_domain = os.environ.get('ONEVIEWSDK_AUTH_LOGIN_DOMAIN', '')
